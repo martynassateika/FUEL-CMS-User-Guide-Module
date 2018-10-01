@@ -5,22 +5,22 @@ require_once(FUEL_PATH.'models/base_module_model.php');
 class Articles_model extends Base_module_model {
 
 	public $required = array();
-	public $foreign_keys = array('author_id' => 'authors_model');	
+	public $foreign_keys = array('author_id' => 'authors_model');
 	public $parsed_fields = array('content', 'content_formatted');
-	
+
 	function __construct()
 	{
 		parent::__construct('articles'); // table name
 	}
-	
-	function list_items($limit = NULL, $offset = NULL, $col = 'name', $order = 'asc')
+
+	function list_items($limit = NULL, $offset = NULL, $col = 'name', $order = 'asc', $just_count = FALSE)
 	{
 		$this->db->join('authors', 'authors.id = articles.author_id', 'left');
 		$this->db->select('articles.id, authors.name AS author, title, SUBSTRING(content, 1, 50) AS content, date_added, articles.published', FALSE);
 		$data = parent::list_items($limit, $offset, $col, $order);
 		return $data;
 	}
-	
+
 	function tree()
 	{
 		$CI =& get_instance();
@@ -47,8 +47,8 @@ class Articles_model extends Base_module_model {
 		}
 		return $return;
 	}
-	
-	function form_fields($values = array())
+
+	function form_fields($values = array(), $related = array())
 	{
 		$fields = parent::form_fields();
 		$CI =& get_instance();
@@ -86,4 +86,3 @@ class Articles_model extends Base_module_model {
 class Article_model extends Data_record {
 	
 }
-?>

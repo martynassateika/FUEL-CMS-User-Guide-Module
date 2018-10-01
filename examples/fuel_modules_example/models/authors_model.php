@@ -11,7 +11,7 @@ class Authors_model extends Base_module_model {
 		parent::__construct('authors'); // table name
 	}
 	
-	function form_fields($values = array())
+	function form_fields($values = array(), $related = array())
 	{
 		$fields = parent::form_fields();
 		
@@ -26,4 +26,3 @@ class Authors_model extends Base_module_model {
 
 class Author_model extends Data_record {
 }
-?>
